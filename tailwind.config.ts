@@ -17,9 +17,9 @@ const config: Config = {
         charcoal: "#3D2B2B",
       },
       fontFamily: {
-        sans: ["Noto Sans TC", "Lato", "sans-serif"],
-        heading: ["Playfair Display", "Noto Sans TC", "serif"],
-        body: ["Lato", "Noto Sans TC", "sans-serif"],
+        sans: ["Noto Sans TC", "Arial", "sans-serif"],
+        heading: ["Arial", "Noto Sans TC", "sans-serif"],
+        body: ["Arial", "Noto Sans TC", "sans-serif"],
       },
       animation: {
         "fade-in": "fadeIn 0.6s ease-out",
