@@ -1,7 +1,16 @@
 import type { Metadata } from "next";
 import PageHeader from "@/components/ui/PageHeader";
 import PageTransition from "@/components/shared/PageTransition";
-import { Target, Eye, Users, Award, BookOpen, Stethoscope } from "lucide-react";
+import {
+  Heart,
+  Target,
+  Eye,
+  Users,
+  Award,
+  BookOpen,
+  Stethoscope,
+  Quote,
+} from "lucide-react";
 
 export const metadata: Metadata = {
   title: "關於學會",
@@ -95,6 +104,40 @@ export default function AboutPage() {
                   </p>
                 </div>
               ))}
+            </div>
+          </div>
+        </div>
+      </section>
+      {/* President's Message */}
+      <section className="section-padding bg-white">
+        <div className="page-container">
+          <div className="max-w-4xl mx-auto">
+            <div className="flex items-center gap-3 mb-8">
+              <div className="w-10 h-10 rounded-xl bg-secondary flex items-center justify-center">
+                <Heart className="w-5 h-5 text-accent" />
+              </div>
+              <h2 className="text-2xl md:text-3xl font-heading font-bold text-charcoal">
+                理事長的話
+              </h2>
+            </div>
+
+            <div className="bg-gradient-to-br from-background to-secondary/15 rounded-2xl border border-secondary/30 overflow-hidden shadow-sm">
+              <div className="p-7 md:p-9">
+                <Quote className="w-6 h-6 text-primary/30 mb-4" />
+
+                <div className="text-sm text-charcoal/65 leading-[1.9] space-y-3">
+                  <p>各位關心乳癌防治的朋友們，大家好：</p>
+                  <p>
+                    很榮幸能擔任臺南市乳癌防治學會理事長。乳癌是台灣女性最常見的癌症，但透過定期篩檢與早期治療，存活率可大幅提升。本會成立以來，一直致力於推動乳癌防治的學術研究與衛教推廣，期盼能讓更多民眾認識乳癌、重視篩檢。
+                  </p>
+                  <p>
+                    未來，我們將持續結合醫療專業與社區力量，舉辦更多優質的學術活動與公益篩檢，並強化病友支持服務。期待與所有關心此議題的夥伴們攜手合作，共同守護台南地區女性的健康。
+                  </p>
+                  <p className="text-accent font-medium pt-1">
+                    讓我們一起，為每一個生命點亮希望。
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowLeft, Calendar, User } from "lucide-react";
 import PageTransition from "@/components/shared/PageTransition";
 import NotionRenderer from "@/components/ui/NotionRenderer";
+import LikeButton from "@/components/ui/LikeButton";
 import { getArticleDetail } from "@/lib/notion";
 import { notFound } from "next/navigation";
 
@@ -94,7 +95,11 @@ export default async function ArticleDetailPage({ params }: Props) {
               </p>
             )}
 
-            <div className="mt-12 pt-6 border-t border-secondary/30">
+            <div className="mt-10 mb-10">
+              <LikeButton pageId={params.id} />
+            </div>
+
+            <div className="pt-6 border-t border-secondary/30">
               <Link href="/education" className="btn-secondary">
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 返回列表
