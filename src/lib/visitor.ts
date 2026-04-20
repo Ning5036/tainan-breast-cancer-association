@@ -1,45 +1,44 @@
-// Visitor counter
-// Uses Upstash Redis REST API when configured, falls back to in-memory
+// Visitor counter using Vercel Managed Redis
+// Falls back to in-memory count when Redis is not configured
+
+import { createClient } from "redis";
 
 let memoryCount = 0;
 
-async function redisRequest(command: string[]): Promise<any> {
-  const url = process.env.KV_REST_API_URL;
-  const token = process.env.KV_REST_API_TOKEN;
-  if (!url || !token) return null;
+async function withRedis<T>(
+  fn: (client: ReturnType<typeof createClient>) => Promise<T>,
+): Promise<T | null> {
+  const url = process.env.REDIS_URL;
+  if (!url) return null;
 
-  const res = await fetch(`${url}`, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(command),
-  });
-
-  if (!res.ok) return null;
-  const data = await res.json();
-  return data.result;
+  const client = createClient({ url });
+  try {
+    await client.connect();
+    const result = await fn(client);
+    await client.disconnect();
+    return result;
+  } catch {
+    try {
+      await client.disconnect();
+    } catch {}
+    return null;
+  }
 }
 
 export async function getVisitorCount(): Promise<number> {
-  try {
-    const result = await redisRequest(["GET", "visitor_count"]);
-    if (result !== null) return parseInt(result, 10) || 0;
-    return memoryCount;
-  } catch {
-    return memoryCount;
-  }
+  const result = await withRedis(async (client) => {
+    const val = await client.get("visitor_count");
+    return val ? parseInt(val, 10) : 0;
+  });
+  return result ?? memoryCount;
 }
 
 export async function incrementVisitorCount(): Promise<number> {
-  try {
-    const result = await redisRequest(["INCR", "visitor_count"]);
-    if (result !== null) return result;
-    memoryCount += 1;
-    return memoryCount;
-  } catch {
-    memoryCount += 1;
-    return memoryCount;
-  }
+  const result = await withRedis(async (client) => {
+    const val = await client.incr("visitor_count");
+    return val;
+  });
+  if (result !== null) return result;
+  memoryCount += 1;
+  return memoryCount;
 }
