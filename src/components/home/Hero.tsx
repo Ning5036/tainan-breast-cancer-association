@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Heart, ArrowRight, ChevronDown } from "lucide-react";
+import { ArrowRight, ChevronDown } from "lucide-react";
+import PinkRibbon from "@/components/ui/PinkRibbon";
 import Link from "next/link";
 
 export default function Hero() {
@@ -39,14 +40,14 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            {/* Floating heart icon */}
+            {/* Floating pink ribbon icon */}
             <motion.div
               className="flex justify-center mb-8"
               animate={{ y: [0, -8, 0] }}
               transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
             >
               <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-xl shadow-primary/25">
-                <Heart className="w-10 h-10 text-white" fill="white" />
+                <PinkRibbon size={40} className="text-white" />
               </div>
             </motion.div>
 

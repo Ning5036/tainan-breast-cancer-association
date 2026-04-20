@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { ThumbsUp } from "lucide-react";
 
 interface Props {
@@ -9,15 +9,10 @@ interface Props {
 }
 
 export default function LikeButton({ pageId }: Props) {
-  const [liked, setLiked] = useState(false);
   const [count, setCount] = useState(0);
+  const [animating, setAnimating] = useState(false);
 
   useEffect(() => {
-    const stored = localStorage.getItem(`like-${pageId}`);
-    if (stored) {
-      setLiked(true);
-    }
-    // Load count from API
     fetch(`/api/likes?id=${pageId}`)
       .then((res) => res.json())
       .then((data) => setCount(data.count || 0))
@@ -25,11 +20,9 @@ export default function LikeButton({ pageId }: Props) {
   }, [pageId]);
 
   const handleLike = async () => {
-    if (liked) return;
-
-    setLiked(true);
     setCount((prev) => prev + 1);
-    localStorage.setItem(`like-${pageId}`, "true");
+    setAnimating(true);
+    setTimeout(() => setAnimating(false), 400);
 
     try {
       await fetch("/api/likes", {
@@ -46,41 +39,23 @@ export default function LikeButton({ pageId }: Props) {
     <div className="flex items-center gap-3">
       <motion.button
         onClick={handleLike}
-        whileTap={liked ? {} : { scale: 1.2 }}
-        className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-full border text-sm font-medium transition-all duration-300 ${
-          liked
-            ? "bg-accent/10 border-accent/30 text-accent"
-            : "bg-background border-secondary/40 text-charcoal/50 hover:border-accent/30 hover:text-accent hover:bg-accent/5 cursor-pointer"
-        }`}
-        disabled={liked}
-        aria-label={liked ? "已點讚" : "點讚"}
+        whileTap={{ scale: 1.15 }}
+        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border text-sm font-medium transition-all duration-300
+                   bg-background border-secondary/40 text-charcoal/60 hover:border-accent/30 hover:text-accent hover:bg-accent/5 cursor-pointer"
+        aria-label="點讚"
       >
-        <AnimatePresence mode="wait">
-          {liked ? (
-            <motion.div
-              key="liked"
-              initial={{ scale: 0, rotate: -30 }}
-              animate={{ scale: 1, rotate: 0 }}
-              transition={{ type: "spring", stiffness: 400, damping: 15 }}
-            >
-              <ThumbsUp className="w-4 h-4 fill-accent" />
-            </motion.div>
-          ) : (
-            <ThumbsUp className="w-4 h-4" />
-          )}
-        </AnimatePresence>
-        <span>{liked ? "已按讚" : "覺得實用"}</span>
-        {count > 0 && (
-          <span
-            className={`text-xs px-1.5 py-0.5 rounded-full ${
-              liked
-                ? "bg-accent/15 text-accent"
-                : "bg-charcoal/5 text-charcoal/40"
-            }`}
-          >
-            {count}
-          </span>
-        )}
+        <motion.div
+          animate={animating ? { scale: [1, 1.4, 1], rotate: [0, -15, 0] } : {}}
+          transition={{ duration: 0.4 }}
+        >
+          <ThumbsUp
+            className={`w-4 h-4 transition-colors ${animating ? "text-accent fill-accent" : ""}`}
+          />
+        </motion.div>
+        <span>覺得實用</span>
+        <span className="text-xs px-2 py-0.5 rounded-full bg-accent/10 text-accent font-bold min-w-[24px] text-center">
+          {count}
+        </span>
       </motion.button>
     </div>
   );

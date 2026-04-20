@@ -4,7 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Heart } from "lucide-react";
+import { Menu, X } from "lucide-react";
+import PinkRibbon from "@/components/ui/PinkRibbon";
 
 const navItems = [
   { href: "/", label: "首頁" },
@@ -27,10 +28,7 @@ export default function Header() {
           {/* Logo — always visible */}
           <Link href="/" className="flex items-center gap-2.5 group shrink-0">
             <div className="w-9 h-9 md:w-10 md:h-10 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-sm">
-              <Heart
-                className="w-4 h-4 md:w-5 md:h-5 text-white"
-                fill="white"
-              />
+              <PinkRibbon size={20} className="text-white" />
             </div>
             <div>
               <p className="text-xs sm:text-sm md:text-base font-bold text-charcoal leading-tight">

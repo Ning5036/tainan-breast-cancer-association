@@ -7,6 +7,7 @@ import {
   User,
   Search,
   FlaskConical,
+  Handshake,
   HeartPulse,
   Brain,
 } from "lucide-react";
@@ -15,12 +16,19 @@ import PageTransition from "@/components/shared/PageTransition";
 import CategoryFilter from "@/components/ui/CategoryFilter";
 import type { ArticleItem } from "@/types";
 
-const categories = ["預防篩檢", "治療新知", "術後照護", "心理支持"];
+const categories = [
+  "預防篩檢",
+  "治療新知",
+  "醫病共享(SDM)專區",
+  "術後照護",
+  "心理支持",
+];
 
 const categoryStyle: Record<string, { bg: string; icon: typeof Search }> = {
   預防篩檢: { bg: "from-blue-50 to-blue-100/60", icon: Search },
   治療新知: { bg: "from-green-50 to-emerald-100/60", icon: FlaskConical },
   術後照護: { bg: "from-amber-50 to-orange-100/60", icon: HeartPulse },
+  "醫病共享(SDM)專區": { bg: "from-teal-50 to-cyan-100/60", icon: Handshake },
   心理支持: { bg: "from-violet-50 to-purple-100/60", icon: Brain },
 };
 

@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
-import { Heart } from "lucide-react";
+import PinkRibbon from "@/components/ui/PinkRibbon";
 
 function useCountUp(target: number, duration = 2000) {
   const [count, setCount] = useState(0);
@@ -47,11 +47,11 @@ export default function VisitorCounter() {
           className="flex flex-col items-center gap-3"
         >
           <div className="flex items-center gap-2">
-            <Heart className="w-4 h-4 text-primary" fill="#E8A0B4" />
+            <PinkRibbon size={16} className="text-primary" />
             <span className="text-xs text-charcoal/40 tracking-widest uppercase font-body">
               Visitors
             </span>
-            <Heart className="w-4 h-4 text-primary" fill="#E8A0B4" />
+            <PinkRibbon size={16} className="text-primary" />
           </div>
           <p className="text-charcoal/70 text-sm md:text-base">
             已有{" "}

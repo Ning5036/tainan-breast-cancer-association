@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import PageHeader from "@/components/ui/PageHeader";
 import PageTransition from "@/components/shared/PageTransition";
+import PinkRibbon from "@/components/ui/PinkRibbon";
 import {
-  Heart,
   Target,
   Eye,
   Users,
@@ -114,7 +114,7 @@ export default function AboutPage() {
           <div className="max-w-4xl mx-auto">
             <div className="flex items-center gap-3 mb-8">
               <div className="w-10 h-10 rounded-xl bg-secondary flex items-center justify-center">
-                <Heart className="w-5 h-5 text-accent" />
+                <PinkRibbon size={20} className="text-accent" />
               </div>
               <h2 className="text-2xl md:text-3xl font-heading font-bold text-charcoal">
                 理事長的話

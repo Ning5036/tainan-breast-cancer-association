@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Heart } from "lucide-react";
+import PinkRibbon from "@/components/ui/PinkRibbon";
 
 const quickLinks = [
   { href: "/about", label: "關於學會" },
@@ -21,7 +21,7 @@ export default function Footer() {
           <div className="md:col-span-5">
             <div className="flex items-center gap-2.5 mb-4">
               <div className="w-9 h-9 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center">
-                <Heart className="w-4 h-4 text-white" fill="white" />
+                <PinkRibbon size={18} className="text-white" />
               </div>
               <span className="font-bold text-white text-sm">
                 臺南市乳癌防治學會

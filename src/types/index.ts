@@ -11,7 +11,12 @@ export interface NewsItem {
 export interface ArticleItem {
   id: string;
   title: string;
-  category: "預防篩檢" | "治療新知" | "術後照護" | "心理支持";
+  category:
+    | "預防篩檢"
+    | "治療新知"
+    | "醫病共享(SDM)專區"
+    | "術後照護"
+    | "心理支持";
   author: string;
   publishDate: string;
   excerpt: string;
