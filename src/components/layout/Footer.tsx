@@ -21,7 +21,7 @@ export default function Footer() {
           <div className="md:col-span-5">
             <div className="flex items-center gap-2.5 mb-4">
               <div className="w-9 h-9 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center">
-                <PinkRibbon size={18} className="text-white" />
+                <PinkRibbon size={27} className="text-white" />
               </div>
               <span className="font-bold text-white text-sm">
                 臺南市乳癌防治學會

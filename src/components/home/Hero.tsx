@@ -47,7 +47,7 @@ export default function Hero() {
               transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
             >
               <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-xl shadow-primary/25">
-                <PinkRibbon size={40} className="text-white" />
+                <PinkRibbon size={60} className="text-white" />
               </div>
             </motion.div>
 

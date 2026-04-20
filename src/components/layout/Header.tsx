@@ -28,7 +28,7 @@ export default function Header() {
           {/* Logo — always visible */}
           <Link href="/" className="flex items-center gap-2.5 group shrink-0">
             <div className="w-9 h-9 md:w-10 md:h-10 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-sm">
-              <PinkRibbon size={20} className="text-white" />
+              <PinkRibbon size={30} className="text-white" />
             </div>
             <div>
               <p className="text-xs sm:text-sm md:text-base font-bold text-charcoal leading-tight">

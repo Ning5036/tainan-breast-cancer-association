@@ -47,11 +47,11 @@ export default function VisitorCounter() {
           className="flex flex-col items-center gap-3"
         >
           <div className="flex items-center gap-2">
-            <PinkRibbon size={16} className="text-primary" />
+            <PinkRibbon size={24} className="text-primary" />
             <span className="text-xs text-charcoal/40 tracking-widest uppercase font-body">
               Visitors
             </span>
-            <PinkRibbon size={16} className="text-primary" />
+            <PinkRibbon size={24} className="text-primary" />
           </div>
           <p className="text-charcoal/70 text-sm md:text-base">
             已有{" "}
