@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Heart, Mail } from "lucide-react";
+import { Heart } from "lucide-react";
 
 const quickLinks = [
   { href: "/about", label: "關於學會" },
@@ -30,10 +30,6 @@ export default function Footer() {
             <p className="text-sm text-white/50 leading-relaxed max-w-sm">
               致力於乳癌防治教育、學術研究推廣及病友支持，為台南地區民眾的健康把關。
             </p>
-            <div className="mt-5 flex items-center gap-2 text-sm text-white/50">
-              <Mail className="w-4 h-4 shrink-0 text-primary/80" />
-              <span>inyang5036@yahoo.com</span>
-            </div>
           </div>
 
           {/* Quick Links */}
