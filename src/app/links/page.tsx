@@ -5,7 +5,8 @@ import PageTransition from "@/components/shared/PageTransition";
 
 export const metadata: Metadata = {
   title: "相關連結",
-  description: "臺南市乳癌防治學會合作夥伴與相關資源連結。",
+  description:
+    "乳癌防治相關政府機關、雲嘉南醫療院所、病友團體及國際組織連結，由臺南市乳癌防治學會整理提供。",
 };
 
 interface LinkGroup {

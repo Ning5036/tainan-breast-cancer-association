@@ -14,7 +14,8 @@ import {
 
 export const metadata: Metadata = {
   title: "關於學會",
-  description: "認識臺南市乳癌防治學會——學會介紹、宗旨及理事長的話。",
+  description:
+    "認識臺南市乳癌防治學會——成立於民國114年，致力於乳癌防治學術研究、篩檢推廣、病友關懷與社區健康教育，守護台南地區女性乳房健康。",
 };
 
 export default function AboutPage() {

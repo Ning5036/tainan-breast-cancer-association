@@ -9,7 +9,8 @@ export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: "資源下載",
-  description: "臺南市乳癌防治學會提供各類衛教資料、表單及指引供下載。",
+  description:
+    "下載乳癌防治衛教手冊、乳房自我檢查指引、術後照護指南、篩檢補助申請表等實用資源，由臺南市乳癌防治學會提供。",
 };
 
 const fileTypeIcon: Record<string, { icon: typeof FileText; color: string }> = {
