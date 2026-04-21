@@ -31,6 +31,9 @@ export const metadata: Metadata = {
     type: "website",
     siteName: "臺南市乳癌防治學會",
   },
+  verification: {
+    google: "1IRa0Ozm2HRENukMEuVLYwnAHru8ejzk7_1KPdZnl84",
+  },
   robots: {
     index: true,
     follow: true,
