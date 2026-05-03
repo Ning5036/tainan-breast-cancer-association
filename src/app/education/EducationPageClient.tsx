@@ -10,6 +10,7 @@ import {
   Handshake,
   HeartPulse,
   Brain,
+  Salad,
 } from "lucide-react";
 import PageHeader from "@/components/ui/PageHeader";
 import PageTransition from "@/components/shared/PageTransition";
@@ -17,6 +18,7 @@ import CategoryFilter from "@/components/ui/CategoryFilter";
 import type { ArticleItem } from "@/types";
 
 const categories = [
+  "營養衛教",
   "預防篩檢",
   "治療新知",
   "醫病共享(SDM)專區",
@@ -25,6 +27,7 @@ const categories = [
 ];
 
 const categoryStyle: Record<string, { bg: string; icon: typeof Search }> = {
+  營養衛教: { bg: "from-lime-50 to-green-100/60", icon: Salad },
   預防篩檢: { bg: "from-blue-50 to-blue-100/60", icon: Search },
   治療新知: { bg: "from-green-50 to-emerald-100/60", icon: FlaskConical },
   術後照護: { bg: "from-amber-50 to-orange-100/60", icon: HeartPulse },
@@ -72,17 +75,29 @@ export default function EducationPageClient({ articles }: Props) {
                   href={`/education/${article.slug}`}
                   className="group block bg-background rounded-2xl overflow-hidden border border-secondary/30 card-hover"
                 >
-                  <div
-                    className={`h-40 bg-gradient-to-br ${style.bg} flex items-center justify-center border-b border-secondary/20 relative overflow-hidden`}
-                  >
-                    <div className="absolute -top-6 -right-6 w-24 h-24 bg-white/20 rounded-full" />
-                    <div className="absolute -bottom-4 -left-4 w-16 h-16 bg-white/15 rounded-full" />
-                    <div className="relative">
-                      <div className="w-16 h-16 rounded-2xl bg-white/60 backdrop-blur-sm flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform duration-300">
-                        <IconComponent className="w-8 h-8 text-accent/70" />
+                  {article.thumbnail ? (
+                    <div className="h-40 border-b border-secondary/20 overflow-hidden bg-secondary/10">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={article.thumbnail}
+                        alt={article.title}
+                        loading="lazy"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    </div>
+                  ) : (
+                    <div
+                      className={`h-40 bg-gradient-to-br ${style.bg} flex items-center justify-center border-b border-secondary/20 relative overflow-hidden`}
+                    >
+                      <div className="absolute -top-6 -right-6 w-24 h-24 bg-white/20 rounded-full" />
+                      <div className="absolute -bottom-4 -left-4 w-16 h-16 bg-white/15 rounded-full" />
+                      <div className="relative">
+                        <div className="w-16 h-16 rounded-2xl bg-white/60 backdrop-blur-sm flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform duration-300">
+                          <IconComponent className="w-8 h-8 text-accent/70" />
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  )}
 
                   <div className="p-5">
                     <div className="flex items-center gap-2 mb-2.5">

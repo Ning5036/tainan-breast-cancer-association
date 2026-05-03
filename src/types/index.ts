@@ -12,6 +12,7 @@ export interface ArticleItem {
   id: string;
   title: string;
   category:
+    | "營養衛教"
     | "預防篩檢"
     | "治療新知"
     | "醫病共享(SDM)專區"
