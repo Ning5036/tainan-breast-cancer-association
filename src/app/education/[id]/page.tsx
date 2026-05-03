@@ -1,11 +1,26 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft, Calendar, User } from "lucide-react";
+import {
+  ArrowLeft,
+  Calendar,
+  User,
+  FileText,
+  ExternalLink,
+} from "lucide-react";
 import PageTransition from "@/components/shared/PageTransition";
 import NotionRenderer from "@/components/ui/NotionRenderer";
 import LikeButton from "@/components/ui/LikeButton";
 import { getArticleDetail } from "@/lib/notion";
 import { notFound } from "next/navigation";
+
+function fileNameFromUrl(url: string): string {
+  try {
+    const path = new URL(url).pathname;
+    return decodeURIComponent(path.split("/").pop() || "下載檔案");
+  } catch {
+    return "下載檔案";
+  }
+}
 
 export const revalidate = 3600;
 
@@ -93,6 +108,43 @@ export default async function ArticleDetailPage({ params }: Props) {
               <p className="text-charcoal/40 text-center py-10">
                 本篇文章尚未新增內容。
               </p>
+            )}
+
+            {article.attachments && article.attachments.length > 0 && (
+              <section className="mt-10 pt-6 border-t border-secondary/30">
+                <h2 className="text-lg font-bold text-charcoal mb-4 flex items-center gap-2">
+                  <FileText className="w-5 h-5 text-accent" />
+                  衛教檔案下載
+                </h2>
+                <ul className="space-y-3">
+                  {article.attachments.map((file, i) => {
+                    const displayName = file.name || fileNameFromUrl(file.url);
+                    return (
+                      <li key={i}>
+                        <a
+                          href={file.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-3 p-4 rounded-xl border border-secondary/40 bg-secondary/10 hover:bg-secondary/20 hover:border-accent/40 transition-colors group"
+                        >
+                          <span className="flex-shrink-0 w-11 h-11 rounded-lg bg-accent/10 flex items-center justify-center text-accent">
+                            <FileText className="w-5 h-5" />
+                          </span>
+                          <span className="flex-1 min-w-0">
+                            <span className="block text-sm font-medium text-charcoal truncate">
+                              {displayName}
+                            </span>
+                            <span className="block text-xs text-charcoal/50 mt-0.5">
+                              點擊開啟或下載
+                            </span>
+                          </span>
+                          <ExternalLink className="w-4 h-4 text-charcoal/40 group-hover:text-accent transition-colors flex-shrink-0" />
+                        </a>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </section>
             )}
 
             <div className="mt-10 mb-10">

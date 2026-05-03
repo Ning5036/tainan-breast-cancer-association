@@ -20,6 +20,23 @@ function getFileUrl(files: any[]): string | null {
   return null;
 }
 
+// Helper to extract all files (url + name) from a Notion files property
+function getAllFiles(files: any[]): Array<{ url: string; name: string }> {
+  if (!files || !Array.isArray(files)) return [];
+  return files
+    .map((file: any) => {
+      const url =
+        file.type === "file"
+          ? file.file?.url
+          : file.type === "external"
+            ? file.external?.url
+            : null;
+      if (!url) return null;
+      return { url, name: file.name || "" };
+    })
+    .filter((f): f is { url: string; name: string } => f !== null);
+}
+
 // Helper to extract select value
 function getSelect(select: any): string {
   return select?.name || "";
@@ -181,6 +198,7 @@ export async function getArticleDetail(slug: string) {
     author: getPlainText(pageData.properties["作者名稱"]?.rich_text),
     publishDate: pageData.properties["發布日期"]?.date?.start || "",
     thumbnail: getFileUrl(pageData.properties["預覽縮圖"]?.files),
+    attachments: getAllFiles(pageData.properties["衛教檔案"]?.files),
     content: richTextContent,
     blocks: blocks.results,
   };
