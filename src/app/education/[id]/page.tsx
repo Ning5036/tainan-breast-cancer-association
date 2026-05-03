@@ -1,24 +1,20 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import {
-  ArrowLeft,
-  Calendar,
-  User,
-  FileText,
-  ExternalLink,
-} from "lucide-react";
+import { ArrowLeft, Calendar, User } from "lucide-react";
 import PageTransition from "@/components/shared/PageTransition";
 import NotionRenderer from "@/components/ui/NotionRenderer";
 import LikeButton from "@/components/ui/LikeButton";
 import { getArticleDetail } from "@/lib/notion";
 import { notFound } from "next/navigation";
 
-function fileNameFromUrl(url: string): string {
+const IMAGE_EXT_RE = /\.(jpe?g|png|gif|webp|svg|bmp|avif|heic|heif)(\?|$)/i;
+
+function isImageUrl(url: string, name?: string): boolean {
+  if (name && IMAGE_EXT_RE.test(name)) return true;
   try {
-    const path = new URL(url).pathname;
-    return decodeURIComponent(path.split("/").pop() || "下載檔案");
+    return IMAGE_EXT_RE.test(new URL(url).pathname);
   } catch {
-    return "下載檔案";
+    return false;
   }
 }
 
@@ -54,6 +50,10 @@ export default async function ArticleDetailPage({ params }: Props) {
 
   const hasBlocks = article.blocks && article.blocks.length > 0;
   const hasContent = contentParagraphs.length > 0;
+
+  const imageAttachments = (article.attachments || []).filter((f) =>
+    isImageUrl(f.url, f.name),
+  );
 
   return (
     <PageTransition>
@@ -92,6 +92,20 @@ export default async function ArticleDetailPage({ params }: Props) {
       <section className="section-padding bg-white">
         <div className="page-container">
           <article className="max-w-3xl mx-auto">
+            {imageAttachments.length > 0 && (
+              <div className="mb-8 space-y-4">
+                {imageAttachments.map((file, i) => (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    key={i}
+                    src={file.url}
+                    alt={file.name || article.title}
+                    className="w-full h-auto rounded-xl border border-secondary/30"
+                  />
+                ))}
+              </div>
+            )}
+
             {hasBlocks && <NotionRenderer blocks={article.blocks} />}
 
             {hasContent && (
@@ -104,47 +118,10 @@ export default async function ArticleDetailPage({ params }: Props) {
               </div>
             )}
 
-            {!hasBlocks && !hasContent && (
+            {!hasBlocks && !hasContent && imageAttachments.length === 0 && (
               <p className="text-charcoal/40 text-center py-10">
                 本篇文章尚未新增內容。
               </p>
-            )}
-
-            {article.attachments && article.attachments.length > 0 && (
-              <section className="mt-10 pt-6 border-t border-secondary/30">
-                <h2 className="text-lg font-bold text-charcoal mb-4 flex items-center gap-2">
-                  <FileText className="w-5 h-5 text-accent" />
-                  衛教檔案下載
-                </h2>
-                <ul className="space-y-3">
-                  {article.attachments.map((file, i) => {
-                    const displayName = file.name || fileNameFromUrl(file.url);
-                    return (
-                      <li key={i}>
-                        <a
-                          href={file.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-3 p-4 rounded-xl border border-secondary/40 bg-secondary/10 hover:bg-secondary/20 hover:border-accent/40 transition-colors group"
-                        >
-                          <span className="flex-shrink-0 w-11 h-11 rounded-lg bg-accent/10 flex items-center justify-center text-accent">
-                            <FileText className="w-5 h-5" />
-                          </span>
-                          <span className="flex-1 min-w-0">
-                            <span className="block text-sm font-medium text-charcoal truncate">
-                              {displayName}
-                            </span>
-                            <span className="block text-xs text-charcoal/50 mt-0.5">
-                              點擊開啟或下載
-                            </span>
-                          </span>
-                          <ExternalLink className="w-4 h-4 text-charcoal/40 group-hover:text-accent transition-colors flex-shrink-0" />
-                        </a>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </section>
             )}
 
             <div className="mt-10 mb-10">
