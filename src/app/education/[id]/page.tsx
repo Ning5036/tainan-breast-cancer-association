@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft, Calendar, User } from "lucide-react";
 import PageTransition from "@/components/shared/PageTransition";
-import NotionRenderer from "@/components/ui/NotionRenderer";
 import LikeButton from "@/components/ui/LikeButton";
 import { getArticleDetail } from "@/lib/notion";
 import { notFound } from "next/navigation";
@@ -43,13 +42,6 @@ export default async function ArticleDetailPage({ params }: Props) {
   } catch {
     notFound();
   }
-
-  const contentParagraphs = article.content
-    ? article.content.split("\n").filter((line: string) => line.trim() !== "")
-    : [];
-
-  const hasBlocks = article.blocks && article.blocks.length > 0;
-  const hasContent = contentParagraphs.length > 0;
 
   const imageAttachments = (article.attachments || []).filter((f) =>
     isImageUrl(f.url, f.name),
@@ -92,8 +84,8 @@ export default async function ArticleDetailPage({ params }: Props) {
       <section className="section-padding bg-white">
         <div className="page-container">
           <article className="max-w-3xl mx-auto">
-            {imageAttachments.length > 0 && (
-              <div className="mb-8 space-y-4">
+            {imageAttachments.length > 0 ? (
+              <div className="space-y-4">
                 {imageAttachments.map((file, i) => (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
@@ -104,23 +96,9 @@ export default async function ArticleDetailPage({ params }: Props) {
                   />
                 ))}
               </div>
-            )}
-
-            {hasBlocks && <NotionRenderer blocks={article.blocks} />}
-
-            {hasContent && (
-              <div className="prose prose-lg max-w-none prose-headings:text-charcoal prose-p:text-charcoal/80 space-y-4">
-                {contentParagraphs.map((paragraph: string, index: number) => (
-                  <p key={index} className="whitespace-pre-wrap">
-                    {paragraph}
-                  </p>
-                ))}
-              </div>
-            )}
-
-            {!hasBlocks && !hasContent && imageAttachments.length === 0 && (
+            ) : (
               <p className="text-charcoal/40 text-center py-10">
-                本篇文章尚未新增內容。
+                本篇文章尚未上傳衛教單。
               </p>
             )}
 
