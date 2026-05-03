@@ -269,6 +269,7 @@ export function renderNotionBlock(block: any): {
   url?: string;
   caption?: string;
   language?: string;
+  fileName?: string;
 } {
   const type = block.type;
 
@@ -328,6 +329,46 @@ export function renderNotionBlock(block: any): {
         content: getPlainText(block.code.rich_text),
         language: block.code.language,
       };
+    case "pdf": {
+      const url =
+        block.pdf.type === "file" ? block.pdf.file.url : block.pdf.external.url;
+      return {
+        type: "pdf",
+        content: "",
+        url,
+        caption: getPlainText(block.pdf.caption),
+      };
+    }
+    case "file": {
+      const url =
+        block.file.type === "file"
+          ? block.file.file.url
+          : block.file.external.url;
+      const fileName = block.file.name || "";
+      return {
+        type: "file",
+        content: "",
+        url,
+        fileName,
+        caption: getPlainText(block.file.caption),
+      };
+    }
+    case "embed": {
+      return {
+        type: "embed",
+        content: "",
+        url: block.embed.url,
+        caption: getPlainText(block.embed.caption),
+      };
+    }
+    case "bookmark": {
+      return {
+        type: "bookmark",
+        content: "",
+        url: block.bookmark.url,
+        caption: getPlainText(block.bookmark.caption),
+      };
+    }
     default:
       return { type: "unsupported", content: "" };
   }

@@ -18,11 +18,11 @@ import CategoryFilter from "@/components/ui/CategoryFilter";
 import type { ArticleItem } from "@/types";
 
 const categories = [
-  "營養衛教",
   "預防篩檢",
   "治療新知",
   "醫病共享(SDM)專區",
   "術後照護",
+  "營養衛教",
   "心理支持",
 ];
 
