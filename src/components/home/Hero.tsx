@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight, ChevronDown } from "lucide-react";
-import PinkRibbon from "@/components/ui/PinkRibbon";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Hero() {
@@ -46,9 +46,14 @@ export default function Hero() {
               animate={{ y: [0, -8, 0] }}
               transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
             >
-              <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-xl shadow-primary/25">
-                <PinkRibbon size={60} className="text-white" />
-              </div>
+              <Image
+                src="/images/logo.png"
+                alt="臺南市乳癌防治學會標誌"
+                width={112}
+                height={112}
+                priority
+                className="w-24 h-24 md:w-28 md:h-28 object-contain drop-shadow-xl"
+              />
             </motion.div>
 
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-charcoal leading-tight tracking-tight">

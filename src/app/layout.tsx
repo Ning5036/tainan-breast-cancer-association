@@ -7,6 +7,7 @@ import CookieConsent from "@/components/ui/CookieConsent";
 import "./globals.css";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://tnbcpa.com"),
   title: {
     default: "臺南市乳癌防治學會 | 乳癌防治、篩檢推廣與病友支持",
     template: "%s | 臺南市乳癌防治學會",
@@ -57,6 +58,7 @@ const jsonLd = {
   name: "臺南市乳癌防治學會",
   alternateName: "Tainan Breast Cancer Prevention Association",
   url: "https://tnbcpa.com",
+  logo: "https://tnbcpa.com/images/logo.png",
   description:
     "臺南市乳癌防治學會致力於乳癌防治教育、學術研究推廣及病友支持，守護台南地區每一位女性的乳房健康。",
   foundingDate: "2025",

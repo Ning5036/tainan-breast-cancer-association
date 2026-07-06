@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import PinkRibbon from "@/components/ui/PinkRibbon";
+import Image from "next/image";
 
 const navItems = [
   { href: "/", label: "首頁" },
@@ -27,9 +27,14 @@ export default function Header() {
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo — always visible */}
           <Link href="/" className="flex items-center gap-2.5 group shrink-0">
-            <div className="w-9 h-9 md:w-10 md:h-10 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-sm">
-              <PinkRibbon size={30} className="text-white" />
-            </div>
+            <Image
+              src="/images/logo.png"
+              alt="臺南市乳癌防治學會標誌"
+              width={40}
+              height={40}
+              priority
+              className="w-9 h-9 md:w-10 md:h-10 object-contain"
+            />
             <div>
               <p className="text-xs sm:text-sm md:text-base font-bold text-charcoal leading-tight">
                 臺南市乳癌防治學會

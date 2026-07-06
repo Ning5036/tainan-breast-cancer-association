@@ -1,5 +1,5 @@
 import Link from "next/link";
-import PinkRibbon from "@/components/ui/PinkRibbon";
+import Image from "next/image";
 
 const quickLinks = [
   { href: "/about", label: "關於學會" },
@@ -20,8 +20,14 @@ export default function Footer() {
           {/* About — wider */}
           <div className="md:col-span-5">
             <div className="flex items-center gap-2.5 mb-4">
-              <div className="w-9 h-9 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center">
-                <PinkRibbon size={27} className="text-white" />
+              <div className="w-10 h-10 rounded-full bg-white overflow-hidden flex items-center justify-center">
+                <Image
+                  src="/images/logo.png"
+                  alt="臺南市乳癌防治學會標誌"
+                  width={40}
+                  height={40}
+                  className="w-10 h-10 object-contain"
+                />
               </div>
               <span className="font-bold text-white text-sm">
                 臺南市乳癌防治學會
